@@ -10,7 +10,6 @@
 /server
 /server/node_modules
 /typescript/node_modules
-/typescript/dist
 /LoginForm/.angular
 /LoginForm/.vscode
 npm-debug.log
