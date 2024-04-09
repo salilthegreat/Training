@@ -38,15 +38,6 @@ export class FormComponent implements OnInit {
     return this.formGroup.controls
   }
 
-  async makeGetRequest(){
-    try {
-      const data= await this.apiCall.getData('http://localhost:5000/logout')
-      console.log(data)
-    }
-    catch(error){
-      console.log(error)
-    }
-  }
 
   async makePostRequest(){
     try{

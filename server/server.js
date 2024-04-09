@@ -12,9 +12,6 @@ const users = [
     { userName: 'zig@yahoo.com', password: '1234' },
 ]
 
-app.get('/logout',(req,res)=>{
-   return res.send('Hello')
-})
 
 app.post('/login', (req, res) => {
     let exist = users.find((user) => user.userName == req.body.userName && user.password == req.body.password)
