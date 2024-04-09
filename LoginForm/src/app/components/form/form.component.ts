@@ -5,7 +5,7 @@ import { validateByEmail } from '../../validators/validateByEmail.validators';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { AxiosCallService } from '../../Services/axios-call.service';
+import { AxiosCallService } from '../../services/axios-call.service';
 import { compileNgModule } from '@angular/compiler';
 import { Router } from '@angular/router';
 
