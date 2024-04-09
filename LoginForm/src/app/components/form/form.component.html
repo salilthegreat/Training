@@ -3,7 +3,7 @@
     <div class="col-md-12  d-flex justify-content-center align-items-center">
         <form [formGroup]="f" (ngSubmit)="onSubmit()" >
             <div class="form-group" >
-                <label for="userName">userName</label>
+                <label for="userName">Username</label>
                 <input class="form-control" type="text" formControlName="userName">
                 <div class="bg-danger" *ngIf="fc['userName'].touched && fc['userName'].invalid">
                 <div *ngIf="fc['userName'].errors?.['required']">
