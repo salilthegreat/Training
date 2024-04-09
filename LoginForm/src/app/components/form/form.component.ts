@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { validateByEmail } from '../../validators/validateByEmail.validators';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs';
 import { AxiosCallService } from '../../services/axios-call.service';
-import { compileNgModule } from '@angular/compiler';
 import { Router } from '@angular/router';
 
 
@@ -19,16 +15,10 @@ import { Router } from '@angular/router';
   styleUrl: './form.component.css'
 })
 export class FormComponent implements OnInit {
-  api = inject(HttpClient)
   loginStatus:any
-   f!: FormGroup
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+   formGroup!: FormGroup
   constructor(
-    private fb : FormBuilder,
+    private formBuilder : FormBuilder,
     private apiCall:AxiosCallService,
     private router:Router
   ) {
@@ -36,21 +26,21 @@ export class FormComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.f = this.fb.group({
+    this.formGroup = this.formBuilder.group({
       userName: ['', [Validators.required, Validators.minLength(5),Validators.email,validateByEmail()]],
       password: ['', [Validators.required,Validators.minLength(4)]]
     })
     
   }
 
-  get fc() {
-    console.log(this.f.controls)
-    return this.f.controls
+  get formControls() {
+    console.log(this.formGroup.controls)
+    return this.formGroup.controls
   }
 
   async makeGetRequest(){
     try {
-      const data = await this.apiCall.getData('http://localhost:5000/logout')
+      const data= await this.apiCall.getData('http://localhost:5000/logout')
       console.log(data)
     }
     catch(error){
@@ -61,8 +51,8 @@ export class FormComponent implements OnInit {
   async makePostRequest(){
     try{
       const payload = {
-        userName:this.fc['userName'].value,
-        password:this.fc['password'].value
+        userName:this.formControls['userName'].value,
+        password:this.formControls['password'].value
       }
       const data = await this.apiCall.postData('http://localhost:5000/login',payload)
       this.loginStatus = data
@@ -77,7 +67,5 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.makePostRequest()
-
-    
   }
 }
