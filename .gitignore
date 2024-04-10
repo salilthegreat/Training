@@ -7,11 +7,15 @@
 /bazel-out
 
 # Node
+/server
 /server/node_modules
+/typescript/node_modules
 /LoginForm/.angular
 /LoginForm/.vscode
 npm-debug.log
 yarn-error.log
+/typescript
+/nest-server/node-node_modules
 
 # IDEs and editors
 .idea/
