@@ -14,6 +14,8 @@
 /LoginForm/.vscode
 npm-debug.log
 yarn-error.log
+/typescript
+/nest-server/node-node_modules
 
 # IDEs and editors
 .idea/

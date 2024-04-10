@@ -4,19 +4,25 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { validateByEmail } from '../../validators/validateByEmail.validators';
 import { AxiosCallService } from '../../services/axios-call.service';
 import { Router } from '@angular/router';
+import { ToggleDirective } from '../../directive/toggle.directive';
 
+interface LoginStatus{
+  Authorized:boolean,
+  role:'admin' | 'member'
+}
 
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,FormsModule],
+  imports: [ReactiveFormsModule, CommonModule,ToggleDirective],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
 export class FormComponent implements OnInit {
-  loginStatus:any
+  loginStatus!: LoginStatus
    formGroup!: FormGroup
+   role?:string
   constructor(
     private formBuilder : FormBuilder,
     private apiCall:AxiosCallService,
@@ -34,7 +40,7 @@ export class FormComponent implements OnInit {
   }
 
   get formControls() {
-    console.log(this.formGroup.controls)
+    // console.log(this.formGroup.controls)
     return this.formGroup.controls
   }
 
@@ -47,7 +53,12 @@ export class FormComponent implements OnInit {
       }
       const data = await this.apiCall.postData('http://localhost:5000/login',payload)
       this.loginStatus = data
-      this.router.navigate(['/success'])
+      if(this.loginStatus.Authorized){
+        this.router.navigate(['/success'])
+        localStorage.setItem('role',this.loginStatus.role)
+      } else{
+        this.router.navigate(['/error'])
+      }
     }
     catch(error:any){
       this.loginStatus = error.response.data

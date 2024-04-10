@@ -37,13 +37,13 @@
             </div>
         </form>
     </div>
-    <!-- <div *ngIf="loginStatus.Authorized ==true">
+    <div   *appToggle="'admin'">
         Login Success
     </div>
 
-    <div *ngIf="loginStatus.Authorized ==false">
-        Login Success
-    </div> -->
+    <div *appToggle="'true'">
+        Login Failure
+    </div>
 
 </div>
 
